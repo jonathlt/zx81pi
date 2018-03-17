@@ -2,7 +2,7 @@
 
 A ZX81 built from a Raspberry Pi, Arduino and a ZX81 keyboard.
 
-##The keyboard
+## The keyboard
 
 This was made using a ZX81 keyboard membrane purchased from RWAP software. The keyboard was stuck to to the outside of a project box and connected to an Arduino Pro Micro.
 Code has been written derived from code written by and copyright Dave Curran of Tynemouth Software (http://blog.tynemouthsoftware.co.uk/2012/02/arduino-based-zx81-usb-keyboard.html)
@@ -10,7 +10,7 @@ The keyboard can talk directly to an emulator on a Raspberry Pi, enabling the ke
 
 TODO - Arduino Schematic, photos
 
-##The Raspberry Pi
+## The Raspberry Pi
 
 The raspberry pi runs the sz81 emulator
 
