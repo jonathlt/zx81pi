@@ -42,7 +42,7 @@ byte keyMapShifted[NUM_ROWS][NUM_COLS] = {
 byte keyMapAlt[NUM_ROWS][NUM_COLS] = {
   {KEY_LEFT_ARROW , '}' , KEY_F3 , ']' , KEY_F1},
   {'=' , '<' , 0 , '~' , 64},
-  {KEY_DOWN_ARROW, KEY_UP_ARROW, KEY_F8, KEY_F6, KEY_BACKSPACE},
+  {KEY_DOWN_ARROW, KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_F6, KEY_BACKSPACE},
   {0 , 0 , 0 , '|' , 156},
   {'>', '$', '(', ')', '\"'},
   {'/', '?', ';', ':', 0},
