@@ -1,0 +1,14 @@
+- name: Set up zx81 emulator on pi
+  hosts: raspberry
+  become: yes
+  become_user: pi
+
+  tasks:
+  - name: change localhost reference in /etc/hosts
+    command: sed -i "s/127.0.1.1.*raspberrypi\tpi-zx81/g" /etc/hosts
+
+  - name: change system hostname file  
+    command: sed -i "s/raspberrypi/pi-zx81/g" /etc/hostname
+
+  - name: change system mailname file
+    command: sed -u "s/raspberrypi/pi-zx81/g" /etc/mailname
