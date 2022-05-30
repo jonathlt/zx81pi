@@ -37,6 +37,7 @@
     apt:
       name: 
         - xserver-xorg-input-evdev
+        - matchbox-common
       state: latest
     become: true
     become_user: root
