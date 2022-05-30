@@ -25,6 +25,22 @@
     become: yes
     become_user: root
 
+  - name: update packages
+    become: true
+    become_user: root
+    apt:
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 86400
+    
+  - name: install packages
+    apt:
+      name: 
+        - xserver-xorg-input-evdev
+      state: latest
+    become: true
+    become_user: root
+       
   - name: Restart the system
     become: yes
     become_user: root
