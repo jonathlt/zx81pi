@@ -53,3 +53,5 @@ Run:
 
 Test that the emulator runs by typing sz81 at the command prompt
 
+Ansible Script
+ansible-playbook -i hosts playbook.yml

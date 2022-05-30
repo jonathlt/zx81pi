@@ -4,11 +4,36 @@
   become_user: pi
 
   tasks:
-  - name: change localhost reference in /etc/hosts
-    command: sed -i "s/127.0.1.1.*raspberrypi\tpi-zx81/g" /etc/hosts
+  - name: change hostname to pi-zx81
+    command: raspi-config nonint do_hostname zx81-pi
+    become: yes
+    become_user: root
 
-  - name: change system hostname file  
-    command: sed -i "s/raspberrypi/pi-zx81/g" /etc/hostname
+  - name: set font style
+    lineinfile:
+      path: /etc/default/console-setup
+      search_string: 'FONTFACE=""'
+      line: FONTFACE="Terminus"
+    become: yes
+    become_user: root
 
-  - name: change system mailname file
-    command: sed -u "s/raspberrypi/pi-zx81/g" /etc/mailname
+  - name: set font size
+    lineinfile:
+      path: /etc/default/console-setup
+      search_string: 'FONTSIZE=""'
+      line: FONTSIZE="16x32"
+    become: yes
+    become_user: root
+
+  - name: Restart the system
+    become: yes
+    become_user: root
+    shell: "sleep 5 && reboot"
+    async: 1
+    poll: 0
+
+  - name: Wait # Wait for hosts to reboot.
+    wait_for_connection: timeout=300 delay=30
+
+  - name: Display a message
+    debug: msg="Finished"
