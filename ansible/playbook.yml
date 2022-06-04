@@ -38,16 +38,54 @@
       name: 
         - xserver-xorg-input-evdev
         - matchbox-common
+        - matchbox-panel 
+        - matchbox-panel-manager 
+        - matchbox-themes-extra 
+        - matchbox-window-manager
+        - libsdl1.2-dev
       state: latest
     become: true
     become_user: root
-       
-  - name: Restart the system
-    become: yes
+
+  - name: install packages no recommends
+    apt:
+      name:
+        - xserver-xorg 
+        - xserver-xorg-video-fbdev 
+        - xinit 
+        - pciutils 
+        - xinput 
+        - xfonts-100dpi 
+        - xfonts-75dpi 
+        - xfonts-scalable
+      state: latest
+      install_recommends: no
+    become: true
     become_user: root
-    shell: "sleep 5 && reboot"
-    async: 1
-    poll: 0
+
+  - name: get sz81
+    get_url:
+      url: http://sourceforge.net/projects/sz81/files/sz81/2.1.7/sz81-2.1.7-source.tar.gz
+      dest: /tmp/sz81-2.1.7-source.tar.gz
+      timeout: 60
+
+  - name: create directory
+    file:
+      path: /tmp/sz81-2.1.7-source
+      state: directory
+
+  - name: unzip sz81
+    ansible.builtin.unarchive:
+      src: /tmp/sz81-2.1.7-source.tar.gz
+      dest: /tmp/sz81-2.1.7-source
+      remote_src: yes
+    
+  #- name: Restart the system
+  #  become: yes
+  #  become_user: root
+  #  shell: "sleep 5 && reboot"
+  #  async: 1
+  #  poll: 0
 
   - name: Wait # Wait for hosts to reboot.
     wait_for_connection: timeout=300 delay=30
