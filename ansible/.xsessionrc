@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# ~/.xinitrc
+#
+# Executed by startx (run your window manager from here)
+# lives in ~/.xsessionrc
+
+#Disable DPMS. (power save/blanking mode for display)
+xset -dpms
+xset s off
+xset s noblank
+
+#Lets remove a lock file that could be caused due to a crash.
+rm /home/pi/.config/chromium/SingletonLock
+
+while true; do
+    # Clean up previously running apps, gracefully at first then harshly
+    # firefox
+    #killall -TERM firefox 2>/dev/null;
+    # chromium
+    killall -TERM sz81 2>/dev/null;
+
+    killall -TERM matchbox-window-manager 2>/dev/null;
+
+    sleep 2;
+
+    # firefox
+    #killall -9 firefox 2>/dev/null;
+    # chromium
+    killall -9 sz81 2>/dev/null;
+
+    killall -9 matchbox-window-manager 2>/dev/null;
+
+    # Launch window manager without title bar.
+    # exec matchbox-window-manager -use_titlebar no -use_cursor no -theme bluebox &
+    exec matchbox-window-manager -use_titlebar no -theme bluebox &
+
+    # Run unclutter - hide cursor
+    # unclutter &
+
+    # Launch browser.
+    # chromium
+    # chromium-browser --incognito --kiosk --noerrdialogs --disable-default-apps --disable-single-click-autofill --disable-translate-new-ux --disable-translate --disable-cache --disk-cache-dir=/dev/null --disk-cache-size=1 --reduce-security-for-testing --app=https://news.bbc.co.uk
+    # firefox:
+    #firefox -kiosk -private-window http://THE_URL_TO_LOAD/LOAD/LOAD.HTM
+    sz81 -1280x720
+done;
+~          
