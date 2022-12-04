@@ -79,6 +79,69 @@
       src: /tmp/sz81-2.1.7-source.tar.gz
       dest: /tmp/sz81-2.1.7-source
       remote_src: yes
+
+  # Edit /tmp/sz81-2.1.7-source/sz81-2.1.7/Makefile
+  - name: set prefix
+    lineinfile:
+      path: /tmp/sz81-2.1.7-source/sz81-2.1.7/Makefile
+      search_string: '#PREFIX?=/usr/local'
+      line: PREFIX?=/usr/local
+
+  - name: set bindir
+    lineinfile:
+      path: /tmp/sz81-2.1.7-source/sz81-2.1.7/Makefile
+      search_string: '#BINDIR?=$(PREFIX)/bin'
+      line: BINDIR?=$(PREFIX)/bin
+
+  - name: set docdir
+    lineinfile:
+      path: /tmp/sz81-2.1.7-source/sz81-2.1.7/Makefile
+      search_string: '#DOCDIR?=$(PREFIX)/share/doc/$(TARGET)'
+      line: 'DOCDIR?=$(PREFIX)/share/doc/$(TARGET)'
+
+  - name: set package data dir
+    lineinfile:
+      path: /tmp/sz81-2.1.7-source/sz81-2.1.7/Makefile
+      search_string: '#PACKAGE_DATA_DIR?=$(PREFIX)/share/$(TARGET)'
+      line: 'PACKAGE_DATA_DIR?=$(PREFIX)/share/$(TARGET)'
+
+  - name: comment prefix
+    lineinfile:
+      path: /tmp/sz81-2.1.7-source/sz81-2.1.7/Makefile
+      search_string: 'PREFIX?=.'
+      line: '#PREFIX?=.'
+
+  - name: comment bindir
+    lineinfile:
+      path: /tmp/sz81-2.1.7-source/sz81-2.1.7/Makefile
+      search_string: 'BINDIR?=$(PREFIX)'
+      line: '#BINDIR?=$(PREFIX)'
+
+  - name: comment docdir
+    lineinfile:
+      path: /tmp/sz81-2.1.7-source/sz81-2.1.7/Makefile
+      search_string: 'DOCDIR?=$(PREFIX)'
+      line: '#DOCDIR?=$(PREFIX)'
+
+  - name: comment package data dir
+    lineinfile:
+      path: /tmp/sz81-2.1.7-source/sz81-2.1.7/Makefile
+      search_string: 'PACKAGE_DATA_DIR?=$(PREFIX)/data'
+      line: '#PACKAGE_DATA_DIR?=$(PREFIX)/data'
+
+  - name: make sz81
+    make:
+      chdir: /tmp/sz81-2.1.7-source/sz81-2.1.7
+
+  - name: install sz81
+    make:
+      chdir: /tmp/sz81-2.1.7-source/sz81-2.1.7
+      target: install
+    become: true
+    become_user: root
+    
+    
+
     
   #- name: Restart the system
   #  become: yes
